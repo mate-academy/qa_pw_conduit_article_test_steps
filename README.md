@@ -7,11 +7,13 @@
 
 ## Main task:
 1. Create new tests for the conduit article: 
-* *create an article without required fields;* 
-* *create an article only with required fields;*
-* *create an article with required and optional fields.*
+* *create an article with required and optional fields;*
+* *create an article without article description;* 
+* *create an article without article text;* 
+* *create an article without article tag;* 
+2. Use as an example *createArticleWithoutRequiredFields.spec.js* test
 2. Please use the POM pattern for new test. 
-3. Please add a `test.step` for each method in new page classes;
+3. Please add a `test.step` for each method in the page classes;
 4. Re-run all your tests and make sure they pass after the updates. 
 
 
