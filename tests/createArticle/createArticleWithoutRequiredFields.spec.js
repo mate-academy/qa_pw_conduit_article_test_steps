@@ -1,26 +1,29 @@
 import { test } from '@playwright/test';
-import { SignInPage } from '../../src/pages/SignInPage';
+import { SignUpPage } from '../../src/pages/SignUpPage';
 import { HomePage } from '../../src/pages/HomePage';
 import { CreateArticlePage } from '../../src/pages/CreateArticlePage';
+import { faker } from '@faker-js/faker';
 
 test.describe('Create an article', () => {
   let homePage;
   let createArticlePage;
 
   test.beforeEach(async ({ page }) => {
-    const signInPage = new SignInPage(page);
+    const signUpPage = new SignUpPage(page);
     homePage = new HomePage(page);
     createArticlePage = new CreateArticlePage(page);
 
     const user = {
-      email: 'test_new_user@gmail.com',
-      password: 'newpass123!',
+      username: `${faker.person.firstName()}_${faker.person.lastName()}`,
+      email: faker.internet.email(),
+      password: faker.internet.password(),
     };
 
-    await signInPage.open();
-    await signInPage.fillEmailField(user.email);
-    await signInPage.fillPasswordField(user.password);
-    await signInPage.clickSignInButton();
+    await signUpPage.open();
+    await signUpPage.fillUsernameField(user.username);
+    await signUpPage.fillEmailField(user.email);
+    await signUpPage.fillPasswordField(user.password);
+    await signUpPage.clickSignUpButton();
     await homePage.assertYourFeedTabIsVisible();
   });
 

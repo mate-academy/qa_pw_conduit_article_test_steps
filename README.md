@@ -13,8 +13,9 @@
 * *create an article without article tag;* 
 2. Use as an example *createArticleWithoutRequiredFields.spec.js* test.
 3. Please use the POM pattern for new test. 
-4. Please add a `test.step` for each method in the page classes;
-5. Re-run all your tests and make sure they pass after the updates. 
+4. Make sure to add all the test preconditions to the beforeEach block. 
+5. Please add a `test.step` for each method in the page classes;
+6. Re-run all your tests and make sure they pass after the updates. 
 
 
 ## Task Reporting: 
