@@ -17,6 +17,8 @@
 5. Please add a `test.step` for each method in the page classes;
 6. Re-run all your tests and make sure they pass after the updates. 
 
+# Hint:
+When adding tags use  `await page.keyboard.press('Enter');` method to enter the tag after filling it's value. Please read more about keyboard actions in the [documentation](https://playwright.dev/docs/api/class-keyboard). 
 
 ## Task Reporting: 
 1. Add and commit all your updates. 
