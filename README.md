@@ -33,4 +33,4 @@
 1. Add and commit all your updates. 
 2. Push the code to the origin.
 3. Create PR for your changes. 
-4. Fix all the suggestions from the Code review until PR is approved.  
+4. Fix all the suggestions from the code review until PR is approved.  
