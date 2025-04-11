@@ -3,7 +3,10 @@ import { expect, test } from '@playwright/test';
 export class HomePage {
   constructor(page) {
     this.page = page;
-    this.yourFeedTab = page.getByText('Your Feed');
+    this.yourFeedTab = page
+      .locator('li')
+      .filter({ hasText: 'Your Feed' })
+      .locator('a');
     this.newArticleLink = page.getByRole('link', { name: 'New Article' });
   }
 
