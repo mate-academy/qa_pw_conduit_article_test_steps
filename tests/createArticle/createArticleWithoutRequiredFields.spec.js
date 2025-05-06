@@ -6,6 +6,12 @@ import { faker } from '@faker-js/faker';
 
 let homePage;
 let createArticlePage;
+let article = {
+  title: faker.lorem.sentence(3),
+  description: faker.lorem.sentence(5),
+  body: faker.lorem.paragraph(10),
+  tag: faker.lorem.word(),
+};
 
 test.beforeEach(async ({ page }) => {
   const signUpPage = new SignUpPage(page);
