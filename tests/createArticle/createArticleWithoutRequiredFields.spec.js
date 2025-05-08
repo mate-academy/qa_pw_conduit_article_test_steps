@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { SignUpPage } from '../../src/pages/SignUpPage';
 import { HomePage } from '../../src/pages/HomePage';
 import { CreateArticlePage } from '../../src/pages/CreateArticlePage';
@@ -30,7 +30,8 @@ test('Creat an article without required fields', async () => {
   await homePage.clickNewArticleLink();
 
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertErrorMessageContainsText(
+
+  await expect(createArticlePage.errorMessage).toContainText(
     'Article title cannot be empty',
   );
 });
