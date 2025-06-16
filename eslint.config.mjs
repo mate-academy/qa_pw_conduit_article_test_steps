@@ -5,23 +5,30 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { languageOptions: { globals: globals.node } },
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.playwright,
+      },
+    },
+  },
   eslintConfigPrettier,
   {
     ...pluginJs.configs.recommended,
     ...playwright.configs['flat/recommended'],
     rules: {
       ...pluginJs.configs.recommended.rules,
+      ...playwright.configs['flat/recommended'].rules,
       'no-unused-vars': 'error',
       'max-len': [
         'error',
         {
           code: 80,
           comments: 80,
-          ignorePattern: 'import *',
+          ignorePatterns: 'import *',
         },
       ],
-      ...playwright.configs['flat/recommended'].rules,
       'playwright/expect-expect': 'off',
     },
     ignores: [
@@ -31,3 +38,4 @@ export default [
     ],
   },
 ];
+
