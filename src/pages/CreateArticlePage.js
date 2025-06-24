@@ -60,7 +60,7 @@ export class CreateArticlePage {
     });
   }
 
-  async assertErrorMessageToHidden() {
+  async assertErrorMessageIsHidden() {
     await test.step('Assert the error message is not shown', async () =>{
       await expect(this.errorMessage).toBeHidden();
     });

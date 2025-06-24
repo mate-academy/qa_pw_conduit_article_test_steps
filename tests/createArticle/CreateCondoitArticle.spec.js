@@ -42,7 +42,7 @@ test.describe('Create conduit article', () => {
       await articlePage.addTagForArticle(article.tag);
       await articlePage.clickPublishArticleButton();
 
-      await articlePage.assertErrorMessageToHidden();
+      await articlePage.assertErrorMessageIsHidden();
 
   });
   test('Create an article without article description', async () => {
@@ -78,7 +78,7 @@ test.describe('Create conduit article', () => {
     await articlePage.fillArticleBody(article.body);
     await articlePage.clickPublishArticleButton();
 
-    await articlePage.assertErrorMessageToHidden();
+    await articlePage.assertErrorMessageIsHidden();
        
   });
 
