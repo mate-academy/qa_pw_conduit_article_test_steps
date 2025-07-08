@@ -29,10 +29,10 @@ test.beforeEach(async ({ page }) => {
 test('Creat an article with required and optional fields', async () => {
   await homePage.clickNewArticleLink();
 
-  await createArticlePage.fillArticleTitle("Title24");
-  await createArticlePage.fillArticleDescription("Description");
-  await createArticlePage.fillArticleTag("tag");
-  await createArticlePage.fillArticleText("some text");
+  await createArticlePage.fillArticleTitle('Title24');
+  await createArticlePage.fillArticleDescription('Description');
+  await createArticlePage.fillArticleTag('tag');
+  await createArticlePage.fillArticleText('some text');
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.checkTitle("Title24");
+  await createArticlePage.checkTitle('Title24');
 });

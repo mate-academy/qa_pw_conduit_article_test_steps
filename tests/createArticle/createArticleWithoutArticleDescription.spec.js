@@ -29,10 +29,11 @@ test.beforeEach(async ({ page }) => {
 test('Creat an article without article description', async () => {
   await homePage.clickNewArticleLink();
 
-  await createArticlePage.fillArticleTitle("Title24");
-  await createArticlePage.fillArticleTag("tag");
-  await createArticlePage.fillArticleText("some text");
+  await createArticlePage.fillArticleTitle('Title24');
+  await createArticlePage.fillArticleTag('tag');
+  await createArticlePage.fillArticleText('some text');
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
-    "Article description cannot be empty");
+    'Article description cannot be empty',
+  );
 });

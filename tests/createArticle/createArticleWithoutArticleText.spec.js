@@ -29,10 +29,11 @@ test.beforeEach(async ({ page }) => {
 test('Creat an article without article text', async () => {
   await homePage.clickNewArticleLink();
 
-  await createArticlePage.fillArticleTitle("Title24");
-  await createArticlePage.fillArticleTag("tag");
-  await createArticlePage.fillArticleDescription("Description");
+  await createArticlePage.fillArticleTitle('Title24');
+  await createArticlePage.fillArticleTag('tag');
+  await createArticlePage.fillArticleDescription('Description');
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
-    "Article body cannot be empty");
+    'Article body cannot be empty',
+  );
 });

@@ -29,9 +29,9 @@ test.beforeEach(async ({ page }) => {
 test('Creat an article without article tag', async () => {
   await homePage.clickNewArticleLink();
 
-  await createArticlePage.fillArticleTitle("Title24");
-  await createArticlePage.fillArticleDescription("Description");
-  await createArticlePage.fillArticleText("some text");
+  await createArticlePage.fillArticleTitle('Title24');
+  await createArticlePage.fillArticleDescription('Description');
+  await createArticlePage.fillArticleText('some text');
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.checkTitle("Title24");
+  await createArticlePage.checkTitle('Title24');
 });
