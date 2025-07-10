@@ -3,16 +3,57 @@ import { expect, test } from '@playwright/test';
 export class CreateArticlePage {
   constructor(page) {
     this.page = page;
+    this.articleTitleField = page.getByPlaceholder('Article Title');
+    this.articleDescriptionField = page.getByPlaceholder(
+      'What\'s this article about?'
+    );
+    this.articleBodyField = page.getByPlaceholder('Write your article (in');
+    this.articleTagField = page.getByPlaceholder('Enter tags');
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
   }
 
+  async open() {
+    await test.step('Open Article page', async () => {
+      await this.page.goto('/editor');
+    })
+  }
+
   async clickPublishArticleButton() {
     await test.step(`Click the 'Publish Article' button`, async () => {
       await this.publishArticleButton.click();
     });
+  }
+
+  async fillArticleTitleField(title) {
+    await test.step('Fill the Article Title field', async () => {
+      await this.articleTitleField.fill(title);
+    })
+  }
+
+  async fillArticleDescriptionField(description) {
+    await test.step(
+      `Fill the "What's this article about ?" field`,
+      async () => {
+        await this.articleDescriptionField.fill(description);
+      })
+  }
+
+  async fillArticleBodyTextArea(body) {
+    await test.step(
+      `Fill the "Write your article (in markdown)" textarea`,
+      async () => {
+        await this.articleBodyField.fill(body);
+      })
+  }
+
+  async fillArticleTagField(tag) {
+    await test.step('Fill article Tags field', async () => {
+      await this.articleTagField.fill(tag);
+      await this.page.keyboard.press('Enter');
+    })
   }
 
   async assertErrorMessageContainsText(messageText) {
