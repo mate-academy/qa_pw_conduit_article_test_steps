@@ -32,8 +32,6 @@ test('Create an article without article text', async () => {
   const article = {
     title: faker.lorem.sentence(),
     description: faker.lorem.sentences(2),
-    text: faker.lorem.paragraphs(3),
-    tag: faker.word.adjective(),
   };
 
   await createArticlePage.fillTitleField(article.title);

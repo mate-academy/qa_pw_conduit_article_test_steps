@@ -37,7 +37,6 @@ test('Create an article without article tag', async () => {
     title: faker.lorem.sentence(),
     description: faker.lorem.sentences(2),
     text: faker.lorem.paragraphs(3),
-    tag: faker.word.adjective(),
   };
 
   await createArticlePage.fillTitleField(article.title);
