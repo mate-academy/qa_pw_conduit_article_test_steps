@@ -34,3 +34,39 @@ test('Creat an article without required fields', async () => {
     'Article title cannot be empty',
   );
 });
+
+//Here I am working on
+//TODO
+test('Create an article without article description', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle(faker.word.words(3));
+  await createArticlePage.fillArticleTextField(faker.lorem.lines(3));
+  await createArticlePage.fillArticleTagField(faker.word.words());
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article description cannot be empty',
+  );
+});
+
+test('Create an article without article text', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle(faker.word.words(3));
+  await createArticlePage.fillArticleDescriptionField(faker.lorem.words(3));
+  await createArticlePage.fillArticleTagField(faker.word.words());
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article body cannot be empty',
+  );
+});
+
+test('Create an article without article tag', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle(faker.word.words(3));
+  await createArticlePage.fillArticleDescriptionField(faker.lorem.words(3));
+  await createArticlePage.fillArticleTextField(faker.lorem.lines(3));
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertEditArticleButtonIsPresented();
+});
