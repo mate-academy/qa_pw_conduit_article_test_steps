@@ -39,7 +39,7 @@ test('Create an article without article tag', async () => {
   await createArticlePage.fillArticleDescriptionField(article.description);
   await createArticlePage.fillArticleBodyField(article.body);
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertArticleTitleIsVisible();
+  await createArticlePage.assertArticleTitleIsVisible(article.title);
   await createArticlePage.assertArticleTitleContainsText(article.title);
   await createArticlePage.assertEditArticleButtonIsVisible();
   await createArticlePage.assertWriteСommentFieldIsVisible();
