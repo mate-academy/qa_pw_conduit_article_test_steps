@@ -26,11 +26,44 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
+const articleData = {
+  articleTitle: faker.lorem.sentence(5),
+  articleDescription: faker.lorem.sentence(10),
+  articleBody: faker.lorem.paragraphs(3),
+  articleTag: faker.word.noun(), 
+};
+
 test('Creat an article without required fields', async () => {
   await homePage.clickNewArticleLink();
 
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
     'Article title cannot be empty',
+  );
+});
+
+test('Creat an article without article description', async () => {
+  await homePage.clickNewArticleLink();
+
+
+  await createArticlePage.fillArticleTitle(articleData.articleTitle);
+  await createArticlePage.fillArticleBody(articleData.articleBody);
+  await createArticlePage.fillArticleTags(articleData.articleTag);
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article description cannot be empty',
+  );
+});
+
+test('Creat an article without article text', async () => {
+  await homePage.clickNewArticleLink();
+
+
+  await createArticlePage.fillArticleTitle(articleData.articleTitle);
+  await createArticlePage.fillArticleDescription(articleData.articleDescription);
+  await createArticlePage.fillArticleTags(articleData.articleTag);
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article body cannot be empty',
   );
 });
