@@ -37,7 +37,7 @@ test.beforeEach(async ({ page }) => {
   return article;
 });
 
-test('Creat an article without required fields', async () => {
+test('Create an article without required fields', async () => {
   await homePage.clickNewArticleLink();
 
   await createArticlePage.clickPublishArticleButton();
@@ -53,7 +53,6 @@ test('Create an article with required and optional fields', async () => {
   await createArticlePage.fillArticleBody(article.body);
   await createArticlePage.fillEnterTags(article.tags);
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertArticleIsCreated(article.title);
 });
 
@@ -62,7 +61,6 @@ test('Create an article without article description', async () => {
   await createArticlePage.fillArticleTitle(article.title);
   await createArticlePage.fillArticleBody(article.body);
   await createArticlePage.fillEnterTags(article.tags);
-  await createArticlePage.clickPublishArticleButton();
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
     'Article description cannot be empty');
@@ -74,7 +72,6 @@ test('Create an article without article text', async () => {
   await createArticlePage.fillAboutField(article.about);
   await createArticlePage.fillEnterTags(article.tags);
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
     'Article body cannot be empty');
 });
@@ -84,7 +81,6 @@ test('Create an article without article tag', async () => {
   await createArticlePage.fillArticleTitle(article.title);
   await createArticlePage.fillAboutField(article.about);
   await createArticlePage.fillArticleBody(article.body);
-  await createArticlePage.clickPublishArticleButton();
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertArticleIsCreated(article.title);
 });
