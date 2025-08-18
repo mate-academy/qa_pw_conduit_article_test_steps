@@ -26,11 +26,47 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
+test('create an article with required and optional fields', async () => {
+  const titleText = 'Short title';
   await homePage.clickNewArticleLink();
+  await createArticlePage.fillArticleTitle(titleText);
+  await createArticlePage.fillArticleDescription('Short description');
+  await createArticlePage.fillArticleBody('Some meaningful body text');
+  await createArticlePage.addArticleTag('short-tag');
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertArticleIsPosted(titleText);
+});
 
+test('create an article without article description', async () => {
+  const titleText = 'Short title';
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillArticleTitle(titleText);
+  await createArticlePage.fillArticleBody('Some meaningful body text');
+  await createArticlePage.addArticleTag('short-tag');
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
-    'Article title cannot be empty',
+    'Article description cannot be empty',
   );
+});
+
+test('create an article without article text', async () => {
+  const titleText = 'Short title';
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillArticleTitle(titleText);
+  await createArticlePage.fillArticleDescription('Short description');
+  await createArticlePage.addArticleTag('short-tag');
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article body cannot be empty',
+  );
+});
+
+test('create an article without article tag', async () => {
+  const titleText = 'Short title';
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillArticleTitle(titleText);
+  await createArticlePage.fillArticleDescription('Short description');
+  await createArticlePage.fillArticleBody('Some meaningful body text');
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertArticleIsPosted(titleText);
 });
