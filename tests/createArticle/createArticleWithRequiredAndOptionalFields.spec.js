@@ -2,20 +2,31 @@ import { test } from '@playwright/test';
 import { SignUpPage } from '../../src/pages/SignUpPage';
 import { HomePage } from '../../src/pages/HomePage';
 import { CreateArticlePage } from '../../src/pages/CreateArticlePage';
+import { ArticlePage } from '../../src/pages/articlePage';
 import { faker } from '@faker-js/faker';
 
 let homePage;
 let createArticlePage;
+let article;
+let articlePage;
 
 test.beforeEach(async ({ page }) => {
   const signUpPage = new SignUpPage(page);
   homePage = new HomePage(page);
   createArticlePage = new CreateArticlePage(page);
+  articlePage = new ArticlePage(page);
 
   const user = {
     username: `${faker.person.firstName()}_${faker.person.lastName()}`,
     email: faker.internet.email(),
     password: faker.internet.password(),
+  };
+
+  article = {
+    title: faker.lorem.sentence(),
+    description: faker.lorem.sentence(),
+    body: faker.lorem.paragraphs(3),
+    tags: faker.lorem.words(3).split(' '),
   };
 
   await signUpPage.open();
@@ -26,11 +37,16 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
+test('Create an article with required and optional fields', async ({}) => {
   await homePage.clickNewArticleLink();
 
+  await createArticlePage.fillTitleField(article.title);
+  await createArticlePage.fillDescriptionField(article.description);
+  await createArticlePage.fillBodyField(article.body);
+  await createArticlePage.fillTagsField(article.tags);
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertErrorMessageContainsText(
-    'Article title cannot be empty',
-  );
+
+  await articlePage.assertArticleTitle(article.title);
+  await articlePage.assertArticleBody();
+  await articlePage.assertArticleTags();
 });
