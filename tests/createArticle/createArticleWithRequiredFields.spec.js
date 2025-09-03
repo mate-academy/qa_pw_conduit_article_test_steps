@@ -35,7 +35,7 @@ test('Create an article with required fields', async ({ page }) => {
   let articleTitle = 'Test Title';
   let articleAbout = 'Test About';
   let articleMarkDown = 'Test Mark Down';
-  let articleTags = 'test_tag';
+  let articleTags = [];
 
   await createArticlePage.fillArticleTitle(articleTitle);
   await createArticlePage.fillArticleAbout(articleAbout);
@@ -43,5 +43,8 @@ test('Create an article with required fields', async ({ page }) => {
   await createArticlePage.fillArticleTags(articleTags);
 
   await createArticlePage.clickPublishArticleButton();
-  await articlePage.assertArtictle(articleTitle, articleMarkDown, articleTags);
+
+  await articlePage.assertArticleTitle(articleTitle);
+  await articlePage.assertArticleMarkDown(articleMarkDown);
+  await articlePage.assertArticleTags(articleTags);
 });

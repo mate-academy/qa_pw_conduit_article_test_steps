@@ -29,7 +29,7 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Create an article without text', async () => {
+test('Create an article without tag', async () => {
   await homePage.clickNewArticleLink();
 
   let articleTitle = 'Test Title';
@@ -41,4 +41,8 @@ test('Create an article without text', async () => {
   await createArticlePage.fillArticleMarkDown(articleMarkDown);
 
   await createArticlePage.clickPublishArticleButton();
+
+  await articlePage.assertArticleTitle(articleTitle);
+  await articlePage.assertArticleMarkDown(articleMarkDown);
+  await articlePage.assertNoTags();
 });
