@@ -31,7 +31,7 @@ test('Create an article without desc', async () => {
 
   let articleTitle = 'Test Title';
   let articleMarkDown = 'Test Mark Down';
-  let articleTags = 'test_tag';
+  let articleTags = ['test_tag'];
 
   await createArticlePage.fillArticleTitle(articleTitle);
   await createArticlePage.fillArticleMarkDown(articleMarkDown);

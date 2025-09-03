@@ -31,7 +31,7 @@ test('Create an article without text', async () => {
 
   let articleTitle = 'Test Title';
   let articleAbout = 'Test About';
-  let articleTags = 'test_tag';
+  let articleTags = ['test_tag'];
 
   await createArticlePage.fillArticleTitle(articleTitle);
   await createArticlePage.fillArticleAbout(articleAbout);

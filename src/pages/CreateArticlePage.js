@@ -51,12 +51,4 @@ export class CreateArticlePage {
       }
     });
   }
-
-  async assertArtictleTitle(articleTitle) {
-    await test.step('Check that article title is displayed', async () => {
-      await expect(
-        this.page.getByRole('heading', { name: articleTitle }),
-      ).toBeVisible();
-    });
-  }
 }
