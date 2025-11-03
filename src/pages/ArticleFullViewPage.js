@@ -9,20 +9,20 @@ export class ArticleFullViewPage {
   }
 
   async assertArticleTitle(articleTitle) {
-    await test.step(`Assert the '${articleTitle}' error is shown`, async () => {
+    await test.step(`Assert the Title '${articleTitle}'`, async () => {
       await expect(this.articleTitle).toContainText(articleTitle);
     });
   }
 
   async assertArticleText(articleText) {
-    await test.step(`Assert the '${articleText}' error is shown`, async () => {
+    await test.step(`Assert the Text '${articleText}'`, async () => {
       await expect(this.articleText).toContainText(articleText);
     });
   }
 
   async assertTagText(tagText) {
-    await test.step(`Assert the '${tagText}' error is shown`, async () => {
-      await expect(this.articleText).toContainText(tagText);
+    await test.step(`Assert the Tag '${tagText}'`, async () => {
+      await expect(this.tagText).toContainText(tagText);
     });
   }
 }
