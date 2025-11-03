@@ -21,20 +21,20 @@ export class CreateArticlePage {
 
   async fillDescriptionField(description) {
     await test.step(`Fill the 'Description' field`, async () => {
-      await this.titleField.fill(description);
+      await this.descriptionField.fill(description);
     });
   }
 
   async fillTextField(text) {
     await test.step(`Fill the 'Text' field`, async () => {
-      await this.titleField.fill(text);
+      await this.textField.fill(text);
     });
   }
 
   async fillTagsField(tag) {
     await test.step(`Fill the 'Tags' field`, async () => {
-      await this.titleField.fill(tag);
-      await this.page.keybord.press('Enter');
+      await this.tagsField.fill(tag);
+      await this.page.keyboard.press('Enter');
     });
   }
 

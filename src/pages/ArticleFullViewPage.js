@@ -20,7 +20,7 @@ export class ArticleFullViewPage {
     });
   }
 
-  async assertTageText(tagText) {
+  async assertTagText(tagText) {
     await test.step(`Assert the '${tagText}' error is shown`, async () => {
       await expect(this.articleText).toContainText(tagText);
     });

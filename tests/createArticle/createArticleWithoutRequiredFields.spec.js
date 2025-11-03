@@ -38,7 +38,7 @@ test('Creat an article without required fields', async () => {
   );
 });
 
-test('Creat an article with required and optional  fields', async () => {
+test('Create an article with required and optional  fields', async () => {
   await homePage.clickNewArticleLink();
 
   await createArticlePage.fillTitleField('Title');
