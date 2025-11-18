@@ -31,6 +31,57 @@ test('Creat an article without required fields', async () => {
 
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
-    'Article title cannot be empty',
+    'Article title cannot be empty'
   );
+});
+
+test('create an article with required and optional fields', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle('abrakadabra');
+  await createArticlePage.fillarticleDescription('abrakadabra');
+  await createArticlePage.fillaarticleBody('abrakadabra');
+  await createArticlePage.fillaarticleTags('abrakadabra');
+  await createArticlePage.enterEtner();
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertNotOnEditorPage();
+});
+
+test('create an article without article description', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle('abrakadabra');
+  await createArticlePage.fillaarticleBody('abrakadabra');
+  await createArticlePage.fillaarticleTags('abrakadabra');
+  await createArticlePage.enterEtner();
+  await createArticlePage.clickPublishArticleButton();
+
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article description cannot be empty'
+  );
+});
+
+test('create an article without article text', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle('abrakadabra');
+  await createArticlePage.fillarticleDescription('abrakadabra');
+  await createArticlePage.fillaarticleTags('abrakadabra');
+  await createArticlePage.enterEtner();
+  await createArticlePage.clickPublishArticleButton();
+
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article body cannot be empty'
+  );
+});
+
+test('create an article without article tag', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle('abrakadabra');
+  await createArticlePage.fillarticleDescription('abrakadabra');
+  await createArticlePage.fillaarticleBody('abrakadabra');
+  await createArticlePage.clickPublishArticleButton();
+
+  await createArticlePage.assertNotOnEditorPage();
 });
