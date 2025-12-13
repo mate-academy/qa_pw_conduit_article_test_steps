@@ -1,23 +1,46 @@
-import { expect, test } from '@playwright/test';
-
-export class CreateArticlePage {
+class CreateArticlePage {
   constructor(page) {
     this.page = page;
-    this.publishArticleButton = page.getByRole('button', {
-      name: 'Publish Article',
-    });
-    this.errorMessage = page.getByRole('list').nth(1);
+    this.titleInput = page.locator('[placeholder="Article Title"]');
+    this.descriptionInput = page.locator(
+      '[placeholder="What\'s this article about?"]',
+    );
+    this.bodyInput = page.locator(
+      '[placeholder="Write your article (in markdown)"]',
+    );
+    this.tagsInput = page.locator('[placeholder="Enter tags"]');
+    this.publishButton = page.locator('button', { hasText: 'Publish Article' });
+    this.errorMessages = page.locator('.error-messages li');
   }
 
-  async clickPublishArticleButton() {
-    await test.step(`Click the 'Publish Article' button`, async () => {
-      await this.publishArticleButton.click();
-    });
+  async goToNewArticle() {
+    await this.page.goto('/editor');
   }
 
-  async assertErrorMessageContainsText(messageText) {
-    await test.step(`Assert the '${messageText}' error is shown`, async () => {
-      await expect(this.errorMessage).toContainText(messageText);
-    });
+  async setTitle(title) {
+    await this.titleInput.fill(title);
+  }
+
+  async setDescription(desc) {
+    await this.descriptionInput.fill(desc);
+  }
+
+  async setBody(body) {
+    await this.bodyInput.fill(body);
+  }
+
+  async addTag(tag) {
+    await this.tagsInput.fill(tag);
+    await this.page.keyboard.press('Enter');
+  }
+
+  async submit() {
+    await this.publishButton.click();
+  }
+
+  async getErrorMessages() {
+    return this.errorMessages.allTextContents();
   }
 }
+
+module.exports = { CreateArticlePage };

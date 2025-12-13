@@ -1,48 +1,27 @@
-import { expect, test } from '@playwright/test';
-
-export class SignUpPage {
+class SignUpPage {
   constructor(page) {
     this.page = page;
-    this.usernameField = page.getByPlaceholder('Username');
-    this.emailField = page.getByPlaceholder('Email');
-    this.passwordField = page.getByPlaceholder('Password');
-    this.signUpButton = page.getByRole('button', { name: 'Sign up' });
-    this.errorMessage = page.getByRole('list').nth(1);
+    this.usernameInput = page.locator('input[placeholder="Username"]');
+    this.emailInput = page.locator('input[placeholder="Email"]');
+    this.passwordInput = page.locator('input[placeholder="Password"]');
+    this.signUpButton = page.locator('button[type="submit"]');
+    this.errorMessages = page.locator('.error-messages li');
   }
 
-  async open() {
-    await test.step(`Open 'Sign Up' page`, async () => {
-      await this.page.goto('/user/register');
-    });
+  async goToSignUp() {
+    await this.page.goto('/register');
   }
 
-  async fillUsernameField(username) {
-    await test.step(`Fill the 'Username' field`, async () => {
-      await this.usernameField.fill(username);
-    });
+  async signUp({ username, email, password }) {
+    if (username) await this.usernameInput.fill(username);
+    if (email) await this.emailInput.fill(email);
+    if (password) await this.passwordInput.fill(password);
+    await this.signUpButton.click();
   }
 
-  async fillEmailField(email) {
-    await test.step(`Fill the 'Email' field`, async () => {
-      await this.emailField.fill(email);
-    });
-  }
-
-  async fillPasswordField(password) {
-    await test.step(`Fill the 'Password' field`, async () => {
-      await this.passwordField.fill(password);
-    });
-  }
-
-  async clickSignUpButton() {
-    await test.step(`Click the 'Sign up' button`, async () => {
-      await this.signUpButton.click();
-    });
-  }
-
-  async assertErrorMessageContainsText(messageText) {
-    await test.step(`Assert the '${messageText}' error is shown`, async () => {
-      await expect(this.errorMessage).toContainText(messageText);
-    });
+  async getErrorMessages() {
+    return this.errorMessages.allTextContents();
   }
 }
+
+module.exports = { SignUpPage };
