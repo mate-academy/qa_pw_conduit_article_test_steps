@@ -24,11 +24,10 @@ test.beforeEach(async ({ page }) => {
   await signUpPage.fillPasswordField(user.password);
   await signUpPage.clickSignUpButton();
   await homePage.assertYourFeedTabIsVisible();
+  await homePage.clickNewArticleLink();
 });
 
-test('Creat an article without required fields', async () => {
-  await homePage.clickNewArticleLink();
-
+test('Create an article without required fields', async () => {
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
     'Article title cannot be empty',
