@@ -1,0 +1,14 @@
+import { test } from '../fixtures/authFixtures';
+
+test('Create an article without article tag', async ({ authenticatedUser }) => {
+  const { homePage, createArticlePage } = authenticatedUser;
+
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillTitleField('Test Article');
+  await createArticlePage.fillDescriptionField('Test Description');
+  await createArticlePage.fillBodyField('Test Body');
+  await createArticlePage.clickPublishArticleButton();
+
+  await createArticlePage.assertWriteCommentFieldIsVisible();
+});
