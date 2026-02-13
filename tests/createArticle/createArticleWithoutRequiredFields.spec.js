@@ -6,6 +6,7 @@ import { faker } from '@faker-js/faker';
 
 let homePage;
 let createArticlePage;
+let article;
 
 test.beforeEach(async ({ page }) => {
   const signUpPage = new SignUpPage(page);
@@ -18,6 +19,13 @@ test.beforeEach(async ({ page }) => {
     password: faker.internet.password(),
   };
 
+  article = {
+    title: faker.lorem.word(),
+    description: faker.lorem.sentence(),
+    body: faker.lorem.paragraph(),
+    tag: [faker.lorem.word(), faker.lorem.word()],
+  };
+
   await signUpPage.open();
   await signUpPage.fillUsernameField(user.username);
   await signUpPage.fillEmailField(user.email);
@@ -26,7 +34,7 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
+test('Create an article without required fields', async () => {
   await homePage.clickNewArticleLink();
 
   await createArticlePage.clickPublishArticleButton();
@@ -34,3 +42,45 @@ test('Creat an article without required fields', async () => {
     'Article title cannot be empty',
   );
 });
+
+test('Create an article without description field', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitleField(article.title);
+  await createArticlePage.fillArticleBodyField(article.body);
+  await createArticlePage.fillArticleTagField(article.tag);
+
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article description cannot be empty',
+  );
+})
+
+test('Create an article without body(text) field', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitleField(article.title);
+  await createArticlePage.fillArticleDescriptionField(article.description);
+  await createArticlePage.fillArticleTagField(article.tag);
+
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article body cannot be empty',
+  );
+})
+
+test(`Create an article without filling 'tags' field`, async () => {
+
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillArticleTitleField(article.title);
+  await createArticlePage.fillArticleDescriptionField(article.description);
+  await createArticlePage.fillArticleBodyField(article.body);
+  
+  await createArticlePage.clickPublishArticleButton();
+
+  await createArticlePage.assertArticleTitleIsVisible(article.title);
+  await createArticlePage.assertTagListIsHidden();
+
+});
+
+
