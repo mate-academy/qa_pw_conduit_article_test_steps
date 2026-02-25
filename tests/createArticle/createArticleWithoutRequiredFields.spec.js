@@ -63,6 +63,5 @@ test('Create an article without tags field', async () => {
     await createArticlePage.fillArticleDescriptionField('Article Description')
     await createArticlePage.clickPublishArticleButton()
 
-    await profilePage.open()
     await profilePage.assertCreatedArticleExists(articleTitle)
 })

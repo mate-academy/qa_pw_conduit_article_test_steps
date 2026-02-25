@@ -38,10 +38,14 @@ export class CreateArticlePage {
     }
 
     async fillArticleMainTextField(inputText) {
-        await this.articleMainTextField.fill(inputText)
+        await test.step(`Filling the main text field`, async () => {
+            await this.articleMainTextField.fill(inputText)
+        })
     }
 
     async fillArticleTagsField(inputText) {
-        await this.articleTagsField.fill(inputText)
+        await test.step(`Filling the tags field`, async () => {
+            await this.articleTagsField.fill(inputText)
+        })
     }
 }
