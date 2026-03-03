@@ -16,7 +16,7 @@ export class CreateArticlePage {
   }
 
   async fillDescriptionField(description) {
-    await test.step(`Fill the 'Description' field`, async () => {
+    await test.step(`Fill the 'Description': ${description}`, async () => {
       await this.page
         .getByPlaceholder("What's this article about?")
         .fill(description);
@@ -24,7 +24,7 @@ export class CreateArticlePage {
   }
 
   async fillBodyField(body) {
-    await test.step(`Fill the 'Article Body' field`, async () => {
+    await test.step(`Fill the 'Article Body' field: ${body}`, async () => {
       await this.page
         .getByPlaceholder('Write your article (in markdown)')
         .fill(body);
@@ -32,7 +32,7 @@ export class CreateArticlePage {
   }
 
   async fillTagsField(tags) {
-    await test.step(`Fill the 'Tags' field`, async () => {
+    await test.step(`Fill the 'Tags' field: ${tags}`, async () => {
       await this.page.getByPlaceholder('Enter tags').fill(tags);
     });
   }
