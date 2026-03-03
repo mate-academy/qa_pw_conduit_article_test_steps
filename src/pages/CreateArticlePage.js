@@ -56,7 +56,7 @@ export class CreateArticlePage {
   }
 
   async assertTitle(title) {
-    await test.step(`Assert the article title is correct`, async () => {
+    await test.step(`Assert the article title is '${title}`, async () => {
       await expect(
         this.page.getByRole('heading', {
           name: title,
