@@ -3,10 +3,39 @@ import { expect, test } from '@playwright/test';
 export class CreateArticlePage {
   constructor(page) {
     this.page = page;
+    this.titleField = page.getByPlaceholder('Article Title');
+    this.descriptionField = page.getByPlaceholder("What's this article about?");
+    this.bodyField = page.getByPlaceholder('Write your article (in markdown)');
+    this.tagsField = page.getByPlaceholder('Enter tags');
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
+  }
+
+  async fillTitle(title) {
+    await test.step(`Fill the 'Article Title' with '${title}'`, async () => {
+      await this.titleField.fill(title);
+    });
+  }
+
+  async fillDescription(description) {
+    await test.step(`Fill the 'Description' with '${description}'`, async () => {
+      await this.descriptionField.fill(description);
+    });
+  }
+
+  async fillBody(body) {
+    await test.step(`Fill the 'Body' with '${body}'`, async () => {
+      await this.bodyField.fill(body);
+    });
+  }
+
+  async fillTag(tag) {
+    await test.step(`Fill the 'Tag' with '${tag}' and press Enter`, async () => {
+      await this.tagsField.fill(tag);
+      await this.page.keyboard.press('Enter');
+    });
   }
 
   async clickPublishArticleButton() {
