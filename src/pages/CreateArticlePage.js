@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
 
 export class CreateArticlePage {
@@ -7,6 +8,15 @@ export class CreateArticlePage {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
+    this.articleTitleField = page.getByPlaceholder('Article Title');
+    this.articleSummaryField = page.getByPlaceholder(
+      'What\'s this article about?'
+    );
+    this.articleBodyField = page.getByPlaceholder(
+      'Write your article (in markdown)'
+    );
+    this.articleTagsField = page.getByPlaceholder('Enter tags');
+
   }
 
   async clickPublishArticleButton() {
@@ -14,6 +24,40 @@ export class CreateArticlePage {
       await this.publishArticleButton.click();
     });
   }
+
+  async fillArticleTitleField() {
+    await test.step(`Fill the 'Article Title' field`, async () => {
+      await this.articleTitleField.fill(faker.book.title());
+    })
+  }
+
+  async fillArticleSummaryField() {
+    await test.step(`Fill the 'Article Summary' field`, async () => {
+      await this.articleSummaryField.fill(faker.lorem.paragraph());
+    })
+  }
+
+  async fillArticleBodyField() {
+    await test.step(`Fill the 'Article Body' field`, async () => {
+      await this.articleBodyField.fill(faker.lorem.paragraphs(3));
+    })
+  }
+
+  async fillArticleTagsField() {
+    await test.step(`Add a tag to the tags field`, async () => {
+      await this.articleTagsField.fill(faker.lorem.word());
+      await this.page.keyboard.press('Enter');
+    })
+  }
+
+ async assertThatUserNavigatedToCreatedArticlePage() {
+  await test.step('Verify that user navigated to created article page', 
+    async () => {
+    await this.page.waitForURL(/article/);
+
+    await expect(this.page).toHaveURL(/.*article/);
+  });
+}
 
   async assertErrorMessageContainsText(messageText) {
     await test.step(`Assert the '${messageText}' error is shown`, async () => {
