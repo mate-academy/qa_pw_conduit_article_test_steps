@@ -10,16 +10,18 @@ export class CreateArticlePage {
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
-    this.errorMessage = page.locator('.error-messages'); // More specific selector for Conduit
+    this.errorMessage = page.locator('.error-messages');
   }
 
   async fillArticleDetails(article) {
     await test.step('Fill in article details', async () => {
-      await this.titleInput.fill(article.title);
-      await this.descriptionInput.fill(article.description);
-      await this.bodyInput.fill(article.body);
+      if (article.title) await this.titleInput.fill(article.title);
+      if (article.description)
+        await this.descriptionInput.fill(article.description);
+      if (article.body) await this.bodyInput.fill(article.body);
       if (article.tags) {
         await this.tagsInput.fill(article.tags);
+        await this.page.keyboard.press('Enter'); // Critical fix for tag registration
       }
     });
   }
