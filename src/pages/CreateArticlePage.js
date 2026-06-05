@@ -20,4 +20,30 @@ export class CreateArticlePage {
       await expect(this.errorMessage).toContainText(messageText);
     });
   }
+  async fillArticleTitleField(title) {
+    await test.step(`Fill the 'Article Title' field with '${title}'`, async () => {
+      await this.page.getByPlaceholder('Article Title').fill(title);
+    });
+  }
+  async fillAboutArticleField(description) {
+    await test.step(`Fill the 'About Article' field with '${description}'`, async () => {
+      await this.page.getByPlaceholder('What\'s this article about?').fill(description);
+    });
+  }
+  async fillArticleBodyField(body) {
+    await test.step(`Fill the 'Article Body' field with '${body}'`, async () => {
+      await this.page.getByPlaceholder('Write your article (in markdown)').fill(body);
+    });
+  }
+  async fillDescriptionField(description) {
+    await test.step(`Fill the 'Description' field with '${description}'`, async () => {
+      await this.page.getByPlaceholder('What\'s this article about?').fill(description);
+    });
+  }
+  async fillArticleTagField(tag) {
+    await test.step(`Fill the 'Article Tag' field with '${tag}'`, async () => {
+      await this.page.getByPlaceholder('Enter tags').fill(tag);
+      await this.page.keyboard.press('Enter');
+    });
+  } 
 }
