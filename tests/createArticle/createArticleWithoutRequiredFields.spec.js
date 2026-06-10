@@ -6,11 +6,13 @@ import { faker } from '@faker-js/faker';
 
 let homePage;
 let createArticlePage;
+let currentPage;
 
 test.beforeEach(async ({ page }) => {
   const signUpPage = new SignUpPage(page);
   homePage = new HomePage(page);
   createArticlePage = new CreateArticlePage(page);
+  currentPage = page;
 
   const user = {
     username: `${faker.person.firstName()}_${faker.person.lastName()}`,
@@ -33,4 +35,59 @@ test('Creat an article without required fields', async () => {
   await createArticlePage.assertErrorMessageContainsText(
     'Article title cannot be empty',
   );
+});
+
+test('create an article with required and optional fields', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle('Test Article Title');
+  await createArticlePage.fillArticleDescription('Test Article Description');
+  await createArticlePage.fillArticleBody('Test Article Body');
+  await createArticlePage.fillArticleTag('test-tag');
+  await currentPage.keyboard.press('Enter');
+  await createArticlePage.clickPublishArticleButton();
+
+  await createArticlePage.assertTagExists('test-tag');
+  await createArticlePage.assertPostCommentButtonIsVisible();
+});
+
+
+test ('create an article without article description', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle('Test Article Title');
+  await createArticlePage.fillArticleBody('Test Article Body');
+  await createArticlePage.fillArticleTag('test-tag');
+  await currentPage.keyboard.press('Enter');
+  await createArticlePage.clickPublishArticleButton();
+
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article description cannot be empty',
+  );
+});
+
+test ('create an article without article body', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle('Test Article Title');
+  await createArticlePage.fillArticleDescription('Test Article Description');
+  await createArticlePage.fillArticleTag('test-tag');
+  await currentPage.keyboard.press('Enter');
+  await createArticlePage.clickPublishArticleButton();
+
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article body cannot be empty',
+  );
+});
+
+test ('create an article without article tag', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillArticleTitle('Test Article Title');
+  await createArticlePage.fillArticleDescription('Test Article Description');
+  await createArticlePage.fillArticleBody('Test Article Body');
+  await currentPage.keyboard.press('Enter');
+  await createArticlePage.clickPublishArticleButton();
+
+  await createArticlePage.assertPostCommentButtonIsVisible();
 });
