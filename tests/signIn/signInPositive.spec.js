@@ -6,13 +6,15 @@ let signInPage;
 let homePage;
 let user;
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page, context }) => {
   signInPage = new SignInPage(page);
   homePage = new HomePage(page);
 
+  await context.clearCookies();
+
   user = {
-    email: 'test_new_user@gmail.com',
-    password: 'newpass123!',
+    email: 'testgg@gmail.com',
+    password: '12345tesT',
   };
 });
 
