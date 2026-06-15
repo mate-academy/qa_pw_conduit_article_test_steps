@@ -64,10 +64,8 @@ test('Create an article without article description', async ({ page }) => {
   await page.keyboard.press('Enter');
 
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertErrorMessageContainsText(
-    'Article description cannot be empty',
-  );
-})
+  await createArticlePage.assertErrorMessageContainsText('Article description cannot be empty');
+});
 
 test('Create an article without article text', async ({ page }) => {
   const article = {
@@ -85,10 +83,8 @@ test('Create an article without article text', async ({ page }) => {
   await page.keyboard.press('Enter');
 
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertErrorMessageContainsText(
-    'Article body cannot be empty',
-  );
-})
+  await createArticlePage.assertErrorMessageContainsText('Article body cannot be empty');
+});
 
 test('Create an article without article tag', async ({ page }) => {
   const article = {

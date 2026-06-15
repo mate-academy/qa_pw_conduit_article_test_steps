@@ -29,7 +29,7 @@ export class CreateArticlePage {
   async fillArticleTitleField(title) {
     await test.step(`Fill the 'Article Title' field with '${title}'`, async () => {
       await this.articleTitleField.fill(title);
-  });
+    });
   }
 
   async fillArticleDescriptionField(description) {
