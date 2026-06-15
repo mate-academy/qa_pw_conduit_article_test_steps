@@ -38,21 +38,21 @@ export class CreateArticlePage {
     });
   }
 
-   async fillArticleBodyField(body) {
+  async fillArticleBodyField(body) {
     await test.step(`Fill the 'Article Body' field with '${body}'`, async () => {
       await this.articleBodyField.fill(body);
     });
   }
 
-    async fillArticleTagsField(tag) {
+  async fillArticleTagsField(tag) {
     await test.step(`Fill the 'Article Tags' field with '${tag}'`, async () => {
       await this.articleTagsField.fill(tag);
     });
   }
 
   async assertArticleTitleIsVisible(title) {
-  await test.step(`Assert article title is visible`, async () => {
-    await expect(this.articleTitle).toHaveText(title);
+    await test.step(`Assert article title is visible`, async () => {
+      await expect(this.articleTitle).toHaveText(title);
     });
   }
 }
