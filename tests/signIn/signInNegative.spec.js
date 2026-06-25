@@ -23,7 +23,7 @@ test.describe('Sign in negative tests', () => {
 
   test('Sign in with wrong password', async () => {
     await signInPage.fillEmailField('test@gmail.com');
-    await signInPage.fillPasswordField('1');
+    await signInPage.fillPasswordField('1.1');
     await signInPage.clickSignInButton();
     await signInPage.assertErrorMessageContainsText(
       `email or password:is invalid`,
