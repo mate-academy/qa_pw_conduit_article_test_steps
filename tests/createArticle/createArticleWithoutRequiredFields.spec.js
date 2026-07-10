@@ -9,6 +9,7 @@ let createArticlePage;
 
 test.beforeEach(async ({ page }) => {
   const signUpPage = new SignUpPage(page);
+
   homePage = new HomePage(page);
   createArticlePage = new CreateArticlePage(page);
 
@@ -23,13 +24,15 @@ test.beforeEach(async ({ page }) => {
   await signUpPage.fillEmailField(user.email);
   await signUpPage.fillPasswordField(user.password);
   await signUpPage.clickSignUpButton();
+
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
+test('Create an article without required fields', async () => {
   await homePage.clickNewArticleLink();
 
   await createArticlePage.clickPublishArticleButton();
+
   await createArticlePage.assertErrorMessageContainsText(
     'Article title cannot be empty',
   );
