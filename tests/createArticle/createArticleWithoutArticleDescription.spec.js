@@ -26,7 +26,7 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
+test('Create an article without article description', async () => {
    const article = {
       title: faker.lorem.words(3),
       body: faker.lorem.paragraphs(2),
