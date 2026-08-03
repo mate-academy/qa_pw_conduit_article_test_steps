@@ -6,20 +6,19 @@ import { faker } from '@faker-js/faker';
 
 let homePage;
 let createArticlePage;
-let article
+let article;
 
 test.beforeEach(async ({ page }) => {
   const signUpPage = new SignUpPage(page);
   homePage = new HomePage(page);
   createArticlePage = new CreateArticlePage(page);
- 
+
   article = {
     title: faker.lorem.sentence(6).replace(/\.$/, ''),
-    aboutArticle: faker.lorem.sentence(6).replace(/\.$/, ''), 
-    description:`"${faker.lorem.sentences(2)}"`,
-    tags: faker.helpers.uniqueArray(
-    () => faker.lorem.word(),4)
-  }
+    aboutArticle: faker.lorem.sentence(6).replace(/\.$/, ''),
+    description: `"${faker.lorem.sentences(2)}"`,
+    tags: faker.helpers.uniqueArray(() => faker.lorem.word(), 4),
+  };
 
   const user = {
     username: `${faker.person.firstName()}_${faker.person.lastName()}`,
@@ -35,7 +34,7 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
+test('Create an article without required fields', async () => {
   await homePage.clickNewArticleLink();
 
   await createArticlePage.clickPublishArticleButton();
@@ -44,55 +43,54 @@ test('Creat an article without required fields', async () => {
   );
 });
 
+test('Create an article with required and optional fields', async () => {
+  await homePage.clickNewArticleLink();
 
-test ('Create an article with required and optional fields', async () => {
+  await createArticlePage.fillArticleTitle(article.title);
+  await createArticlePage.fillAboutArticleField(article.aboutArticle);
+  await createArticlePage.fillArticleDescription(article.description);
+  await createArticlePage.fillArticleTags(article.tags);
 
-  await homePage.clickNewArticleLink()
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertPublishedArticleTitleIsVisible(article.title);
+});
 
-  await createArticlePage.fillActicleTitle(article.title)
-  await createArticlePage.fillAboutArticleField(article.aboutArticle)
-  await createArticlePage.fillActicleDescription(article.description)
-  await createArticlePage.fillActicleTags(article.tags)
+test('Create an article without article description', async () => {
+  await homePage.clickNewArticleLink();
 
-  await createArticlePage.clickPublishArticleButton()
-})
+  await createArticlePage.fillArticleTitle(article.title);
+  await createArticlePage.fillAboutArticleField(article.aboutArticle);
+  await createArticlePage.fillArticleTags(article.tags);
 
-test (`Create an article without article description`, async () => {
-  await homePage.clickNewArticleLink() 
-  
-  await createArticlePage.fillActicleTitle(article.title)
-  await createArticlePage.fillAboutArticleField(article.aboutArticle)
-  await createArticlePage.fillActicleTags(article.tags)
-
-  await createArticlePage.clickPublishArticleButton()
+  await createArticlePage.clickPublishArticleButton();
 
   await createArticlePage.assertErrorMessageContainsText(
-    'Article body cannot be empty');
-})
+    'Article body cannot be empty',
+  );
+});
 
+test('Create an article without article text', async () => {
+  await homePage.clickNewArticleLink();
 
-test (`Create an article without article text`, async () => {
+  await createArticlePage.fillArticleTitle(article.title);
+  await createArticlePage.fillArticleDescription(article.description);
+  await createArticlePage.fillArticleTags(article.tags);
 
-  await homePage.clickNewArticleLink() 
-  await createArticlePage.fillActicleTitle(article.title)
-  await createArticlePage.fillActicleDescription(article.description)
-  await createArticlePage.fillActicleTags(article.tags)
+  await createArticlePage.clickPublishArticleButton();
 
-  await createArticlePage.clickPublishArticleButton()
   await createArticlePage.assertErrorMessageContainsText(
-    'Article description cannot be empty');
-})
+    'Article description cannot be empty',
+  );
+});
 
+test('Create an article without article tags', async () => {
+  await homePage.clickNewArticleLink();
 
-test (`Create an article without article tags`, async () => {
+  await createArticlePage.fillArticleTitle(article.title);
+  await createArticlePage.fillAboutArticleField(article.aboutArticle);
+  await createArticlePage.fillArticleDescription(article.description);
 
-  await homePage.clickNewArticleLink()
+  await createArticlePage.clickPublishArticleButton();
 
-  await createArticlePage.fillActicleTitle(article.title)
-  await createArticlePage.fillAboutArticleField(article.aboutArticle)
-  await createArticlePage.fillActicleDescription(article.description)
-
-  await createArticlePage.clickPublishArticleButton()
-
-  await createArticlePage.assertArticleTitleIsVisible(article.title)
-})
+  await createArticlePage.assertPublishedArticleTitleIsVisible(article.title);
+});

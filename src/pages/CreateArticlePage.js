@@ -7,11 +7,11 @@ export class CreateArticlePage {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
-    this.acticletTitleField = page.getByPlaceholder('Article Title')
-    this.aboutActicleField = page.getByPlaceholder(`What's this article about?`)
-    this.acticleDescField = page.getByPlaceholder('Write your article (in')
-    this.tagsField = page.getByPlaceholder('Enter tags')
-
+    this.articleTitleField = page.getByPlaceholder('Article Title');
+    this.aboutArticleField = page.getByPlaceholder(`What's this article about?`);
+    this.articleDescField = page.getByPlaceholder('Write your article (in');
+    this.tagsField = page.getByPlaceholder('Enter tags');
+    this.publishedArticleHeading = page.getByRole('heading', { level: 1 });
   }
 
   async clickPublishArticleButton() {
@@ -26,34 +26,36 @@ export class CreateArticlePage {
     });
   }
 
-  async fillActicleTitle(title) {
-    await test.step(`Fill the article title field`, async() => {
-      await this.acticletTitleField.fill(title)
-    })
+  async fillArticleTitle(title) {
+    await test.step(`Fill the article title field`, async () => {
+      await this.articleTitleField.fill(title);
+    });
   }
 
   async fillAboutArticleField(aboutField) {
-    await test.step(`Fill about the acticle field`, async () => {
-      await this.aboutActicleField.fill(aboutField)
-    })
-  }
-  async fillActicleDescription(description) {
-    await test.step(`Fill description for the article`, async () => {
-      await this.acticleDescField.fill(description)
-    })
-  }
-
-  async fillActicleTags(tags) {
-    await test.step(`Fill tags`, async () => {
-      for (const i of tags) {
-        await this.tagsField.fill(i)
-        await this.page.keyboard.press('Enter')
-      }
-    })
-  }
-
-  async assertArticleTitleIsVisible(title) {
-    await test.step(`Assert the article title is visible`, async () => {
-      await expect(this.acticletTitleField).toHaveValue(title);
+    await test.step(`Fill about the article field`, async () => {
+      await this.aboutArticleField.fill(aboutField);
     });
-  }}
+  }
+
+  async fillArticleDescription(description) {
+    await test.step(`Fill description for the article`, async () => {
+      await this.articleDescField.fill(description);
+    });
+  }
+
+  async fillArticleTags(tags) {
+    await test.step(`Fill tags`, async () => {
+      for (const tag of tags) {
+        await this.tagsField.fill(tag);
+        await this.page.keyboard.press('Enter');
+      }
+    });
+  }
+
+  async assertPublishedArticleTitleIsVisible(title) {
+    await test.step(`Assert published article title '${title}' is visible`, async () => {
+      await expect(this.publishedArticleHeading).toHaveText(title);
+    });
+  }
+}
