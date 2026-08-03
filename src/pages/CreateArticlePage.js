@@ -7,6 +7,11 @@ export class CreateArticlePage {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
+    this.acticletTitleField = page.getByPlaceholder('Article Title')
+    this.aboutActicleField = page.getByPlaceholder(`What's this article about?`)
+    this.acticleDescField = page.getByPlaceholder('Write your article (in')
+    this.tagsField = page.getByPlaceholder('Enter tags')
+
   }
 
   async clickPublishArticleButton() {
@@ -20,4 +25,35 @@ export class CreateArticlePage {
       await expect(this.errorMessage).toContainText(messageText);
     });
   }
-}
+
+  async fillActicleTitle(title) {
+    await test.step(`Fill the article title field`, async() => {
+      await this.acticletTitleField.fill(title)
+    })
+  }
+
+  async fillAboutArticleField(aboutField) {
+    await test.step(`Fill about the acticle field`, async () => {
+      await this.aboutActicleField.fill(aboutField)
+    })
+  }
+  async fillActicleDescription(description) {
+    await test.step(`Fill description for the article`, async () => {
+      await this.acticleDescField.fill(description)
+    })
+  }
+
+  async fillActicleTags(tags) {
+    await test.step(`Fill tags`, async () => {
+      for (const i of tags) {
+        await this.tagsField.fill(i)
+        await this.page.keyboard.press('Enter')
+      }
+    })
+  }
+
+  async assertArticleTitleIsVisible(title) {
+    await test.step(`Assert the article title is visible`, async () => {
+      await expect(this.acticletTitleField).toHaveValue(title);
+    });
+  }}
