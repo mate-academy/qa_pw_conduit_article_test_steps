@@ -38,6 +38,7 @@ test('Create an article without article tag', async () => {
   await createArticlePage.fillDescriptionField(article.description);
   await createArticlePage.fillBodyField(article.body);
   await createArticlePage.clickPublishArticleButton();
-
-  await createArticlePage.assertArticleTitleIsVisible(article.title);
+await createArticlePage.assertErrorMessageContainsText(
+  'Article tag cannot be empty',
+);
 });
