@@ -30,23 +30,27 @@ export class CreateArticlePage {
   async fillArticleTitle() {
     await test.step(`Fill the 'Article Title' field`, async () => {
       await this.articleTitle.fill('Article Title');
+      await this.page.keyboard.press('Enter');
     });
   }
 
   async fillDescriptionArticle() {
     await test.step(`Fill the 'Description' field`, async () => {
       await this.articleDescription.fill('Article Description');
+      await this.page.keyboard.press('Enter');
     });
   }
 
   async fillArticleBody() {
     await test.step(`Fill the 'Article Body' field`, async () => {
       await this.articleBody.fill('Some Text');
+      await this.page.keyboard.press('Enter');
     });
   }
   async fillEnterTags() {
     await test.step(`Fill the 'Enter Tags' field`, async () => {
       await this.enterTags.fill('Some Enter Tags');
+      await this.page.keyboard.press('Enter');
     });
   }
 }
