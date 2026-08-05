@@ -33,4 +33,7 @@ test('Create an article without article text', async () => {
   await createArticlePage.fillDescriptionArticle();
   await createArticlePage.fillEnterTags();
   await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article body cannot be empty',
+  );
 });
