@@ -29,7 +29,7 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async ({ page } ) => {
+test('Create an article without article description', async ({ page } ) => {
   await homePage.clickNewArticleLink();
   await createArticlePage.fillArticleTitle(article.title);
   await createArticlePage.fillArticleBody(article.body);

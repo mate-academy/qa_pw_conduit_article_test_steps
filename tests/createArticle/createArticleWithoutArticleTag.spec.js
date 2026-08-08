@@ -29,11 +29,13 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
+test('Create an article without article tag', async () => {
   await homePage.clickNewArticleLink();
   await createArticlePage.fillArticleTitle(article.title);
   await createArticlePage.fillArticleDesc(article.description);
   await createArticlePage.fillArticleBody(article.body);
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertPostCommentButtonIsDisplayed();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article tag cannot be empty',
+  );
 });
