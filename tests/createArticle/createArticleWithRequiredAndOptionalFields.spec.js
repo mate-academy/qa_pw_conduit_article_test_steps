@@ -30,15 +30,13 @@ test.beforeEach(async ({ page }) => {
   await signUpPage.fillPasswordField(user.password);
   await signUpPage.clickSignUpButton();
   await homePage.assertYourFeedTabIsVisible();
+  article = {
+    title: faker.lorem.sentence(),
+    description: faker.lorem.sentence(),
+    body: faker.lorem.paragraphs(3),
+  };
+  tag = faker.lorem.word();
 });
-
-article = {
-  title: faker.lorem.sentence(),
-  description: faker.lorem.sentence(),
-  body: faker.lorem.paragraphs(3),
-};
-
-tag = faker.lorem.word();
 
 test('Create an article with required and optional fields', async () => {
   await homePage.clickNewArticleLink();

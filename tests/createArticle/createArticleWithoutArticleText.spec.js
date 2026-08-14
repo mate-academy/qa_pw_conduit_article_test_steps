@@ -24,6 +24,13 @@ test.beforeEach(async ({ page }) => {
     password: faker.internet.password(),
   };
 
+  article = {
+    title: faker.lorem.sentence(),
+    description: faker.lorem.sentence(),
+  };
+
+  tag = faker.lorem.word();
+
   await signUpPage.open();
   await signUpPage.fillUsernameField(user.username);
   await signUpPage.fillEmailField(user.email);
@@ -31,14 +38,6 @@ test.beforeEach(async ({ page }) => {
   await signUpPage.clickSignUpButton();
   await homePage.assertYourFeedTabIsVisible();
 });
-
-article = {
-  title: faker.lorem.sentence(),
-  description: faker.lorem.sentence(),
-  body: faker.lorem.paragraphs(3),
-};
-
-tag = faker.lorem.word();
 
 test('Create an article without body', async () => {
   await homePage.clickNewArticleLink();
