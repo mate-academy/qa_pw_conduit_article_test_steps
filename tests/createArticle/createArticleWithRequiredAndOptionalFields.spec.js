@@ -34,7 +34,7 @@ const description = faker.lorem.sentence();
 const text = faker.lorem.paragraph();
 const tag = faker.lorem.word();
 
-test('Creat an article with required and optional fields', async () => {
+test('Create an article with required and optional fields', async () => {
   await homePage.clickNewArticleLink();
 
   await createArticlePage.fillArticleTitle(title);

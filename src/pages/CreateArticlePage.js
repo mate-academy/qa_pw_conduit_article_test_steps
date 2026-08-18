@@ -4,10 +4,8 @@ export class CreateArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitle = page.getByPlaceholder('Article Title');
-    this.articleDescription = 
-    page.getByPlaceholder("What's this article about?");
-    this.articleText = 
-    page.getByPlaceholder("Write your article (in markdown)");
+    this.articleDescription = page.getByPlaceholder("What's this article about?");
+    this.articleText = page.getByPlaceholder("Write your article (in markdown)");
     this.articleTag = page.getByPlaceholder('Enter tags');
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
