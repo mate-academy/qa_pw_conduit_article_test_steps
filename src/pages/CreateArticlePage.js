@@ -17,7 +17,7 @@ export class CreateArticlePage {
   }
 
   async fillTagInputField(inputValue) {
-    await test.step(`Fill the '${inputValue}' field'`, async () => {
+    await test.step(`Fill the '${inputValue}' field`, async () => {
       await this.tagField.fill(inputValue);
       await this.page.keyboard.press('Enter');
     });
