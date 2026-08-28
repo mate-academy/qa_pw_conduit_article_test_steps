@@ -3,15 +3,43 @@ import { expect, test } from '@playwright/test';
 export class CreateArticlePage {
   constructor(page) {
     this.page = page;
+    this.tagField = page.getByPlaceholder('Enter tags');
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
   }
 
+  async fillInputField(placeholderName, inputValue) {
+    await test.step(`Fill the '${placeholderName}' field`, async () => {
+      await this.page.getByPlaceholder(placeholderName).fill(inputValue);
+    });
+  }
+
+  async fillTagInputField(inputValue) {
+    await test.step(`Fill the '${inputValue}' field`, async () => {
+      await this.tagField.fill(inputValue);
+      await this.page.keyboard.press('Enter');
+    });
+  }
+
   async clickPublishArticleButton() {
     await test.step(`Click the 'Publish Article' button`, async () => {
-      await this.publishArticleButton.click();
+      await this.publishArticleButton.click({ delay: 2000 });
+    });
+  }
+
+  async assertArticleTitleIsCorrect(title) {
+    await test.step(`Assert the article title is correct`, async () => {
+      await expect(
+        this.page.getByRole('heading', { name: title }),
+      ).toBeVisible();
+    });
+  }
+
+  async assertArticleTagsAreNotVisible() {
+    await test.step(`Assert the article tags are not visible`, async () => {
+      await expect(this.page.locator('.tag-default')).not.toBeVisible();
     });
   }
 
