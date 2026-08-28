@@ -4,7 +4,6 @@ export class CreateArticlePage {
   constructor(page) {
     this.page = page;
     this.tagField = page.getByPlaceholder('Enter tags');
-    this.tag = page.getByText('Enter tags');
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
@@ -40,7 +39,7 @@ export class CreateArticlePage {
 
   async assertArticleTagsAreNotVisible() {
     await test.step(`Assert the article tags are not visible`, async () => {
-      await expect(this.tag).not.toBeVisible();
+      await expect(this.page.locator('.tag-default')).not.toBeVisible();
     });
   }
 
