@@ -40,7 +40,7 @@ test('Create an article without article text', async () => {
     "What's this article about?",
     article.description,
   );
-  await createArticlePage.fillTagInputField('Enter tags', article.tag);
+  await createArticlePage.fillTagInputField(article.tag);
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
     'Article body cannot be empty',
