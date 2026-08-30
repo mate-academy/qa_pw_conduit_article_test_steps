@@ -26,9 +26,7 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Create an article with required and optional fields', async ({
-  page,
-}) => {
+test('Create an article without article description', async () => {
   const articleTitle = faker.lorem.words(5);
   const articleBody = faker.lorem.paragraphs(3);
   const articleTags = faker.lorem.word();
@@ -37,7 +35,6 @@ test('Create an article with required and optional fields', async ({
   await createArticlePage.fillArticleTitleField(articleTitle);
   await createArticlePage.fillArticleBodyField(articleBody);
   await createArticlePage.fillArticleTagsField(articleTags);
-  await page.keyboard.press('Enter');
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
     'Article description cannot be empty',

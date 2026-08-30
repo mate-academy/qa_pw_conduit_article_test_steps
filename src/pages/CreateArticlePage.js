@@ -13,6 +13,7 @@ export class CreateArticlePage {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
+    this.writeComment = page.getByPlaceholder('Write a comment...');
   }
 
   async fillArticleTitleField(articleTitle) {
@@ -36,6 +37,7 @@ export class CreateArticlePage {
   async fillArticleTagsField(articleTags) {
     await test.step(`Fill the "Article Tags" field`, async () => {
       await this.articleTagsField.fill(articleTags);
+      await this.page.keyboard.press('Enter');
     });
   }
 
@@ -48,6 +50,12 @@ export class CreateArticlePage {
   async assertErrorMessageContainsText(messageText) {
     await test.step(`Assert the '${messageText}' error is shown`, async () => {
       await expect(this.errorMessage).toContainText(messageText);
+    });
+  }
+
+  async assertWriteCommentIsVisible() {
+    await test.step(`Assert the 'Write a comment' tab is visible`, async () => {
+      await expect(this.writeComment).toBeVisible();
     });
   }
 }
