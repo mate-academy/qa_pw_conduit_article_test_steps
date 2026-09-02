@@ -62,7 +62,7 @@ test.describe('Create Article Tests', () => {
     await createArticlePage.assertErrorMessageContainsText('Article body cannot be empty'); 
   });
 
-  test('Create an article without article tags', async () => {
+  test('Create an article without article tag', async () => {
     const randomTitle = faker.lorem.words(3);
 
     await homePage.clickNewArticleLink();
