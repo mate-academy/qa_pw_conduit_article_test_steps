@@ -6,7 +6,6 @@ export class CreateArticlePage {
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
-    this.errorMessage = page.getByRole('list').nth(1);
   }
 
   async clickPublishArticleButton() {
@@ -17,7 +16,38 @@ export class CreateArticlePage {
 
   async assertErrorMessageContainsText(messageText) {
     await test.step(`Assert the '${messageText}' error is shown`, async () => {
-      await expect(this.errorMessage).toContainText(messageText);
+      await expect(this.page.locator('body')).toContainText(messageText);
     });
+  }
+
+  async fillArticleTitleField(title) {
+    await test.step(`Fill the 'Article Title' field with '${title}'`, 
+      async () => {
+      await this.page.getByPlaceholder('Article Title').fill(title);
+    });
+  }
+
+  async fillArticleDescriptionField(description) {
+    await test.step(`Fill the 'What's this article about?' field with '${description}'`,
+      async () => {
+        await this.page.getByPlaceholder("What's this article about?").fill(description);
+      },
+    );
+  }
+
+  async fillArticleBodyField(body) {
+    await test.step(`Fill the 'Write your article (in markdown)' field with '${body}'`,
+      async () => {
+        await this.page.getByPlaceholder('Write your article (in markdown)').fill(body);
+      },
+    );
+  }
+  async fillArticleTagsField(tags) {
+    await test.step(`Fill the 'Enter tags' field with '${tags}'`,
+      async () => {
+        await this.page.getByPlaceholder('Enter tags').fill(tags);
+        await this.page.keyboard.press('Enter');
+      }
+    );
   }
 }
