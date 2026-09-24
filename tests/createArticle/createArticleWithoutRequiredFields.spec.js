@@ -27,10 +27,16 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Creat an article without required fields', async () => {
-  await homePage.clickNewArticleLink();
+  await test.step(`Open the 'New Article' page`, async () => {
+    await homePage.clickNewArticleLink();
+  });
 
-  await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertErrorMessageContainsText(
-    'Article title cannot be empty',
-  );
+  await test.step('Publish the article', async () => {
+    await createArticlePage.clickPublishArticleButton();
+  });
+  await test.step('Check the error message', async () => {
+    await createArticlePage.assertErrorMessageContainsText(
+      'Article title cannot be empty',
+    );
+  });
 });
