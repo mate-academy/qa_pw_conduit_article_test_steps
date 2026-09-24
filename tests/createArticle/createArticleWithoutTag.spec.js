@@ -36,13 +36,29 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Create an article without tag', async () => {
-  await homePage.clickNewArticleLink();
-  await createArticlePage.fillUpArticleTitle(article.title);
-  await createArticlePage.fillUpArticleDescription(article.description);
-  await createArticlePage.fillUpArticleBody(article.body);
-  await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.waitForArticlePageToLoad();
+  await test.step(`Open the 'New Article' page`, async () => {
+    await homePage.clickNewArticleLink();
+  });
+  await test.step('Fill in the article title', async () => {
+    await createArticlePage.fillUpArticleTitle(article.title);
+  });
+  await test.step('Fill in the article description', async () => {
+    await createArticlePage.fillUpArticleDescription(article.description);
+  });
+  await test.step('Fill in the article body', async () => {
+    await createArticlePage.fillUpArticleBody(article.body);
+  });
+  await test.step('Publish the article', async () => {
+    await createArticlePage.clickPublishArticleButton();
+  });
+  await test.step('Wait for the article page to open', async () => {
+    await createArticlePage.waitForArticlePageToLoad();
+  });
 
-  await articlePage.assertArticleTitleIsVisible(article.title);
-  await articlePage.assertArticleBodyIsVisible(article.body);
+  await test.step('Check the article title', async () => {
+    await articlePage.assertArticleTitleIsVisible(article.title);
+  });
+  await test.step('Check the article body', async () => {
+    await articlePage.assertArticleBodyIsVisible(article.body);
+  });
 });

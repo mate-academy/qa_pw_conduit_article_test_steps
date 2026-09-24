@@ -33,13 +33,25 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Create an article without description', async () => {
-  await homePage.clickNewArticleLink();
-  await createArticlePage.fillUpArticleTitle(article.title);
-  await createArticlePage.fillUpArticleBody(article.body);
-  await createArticlePage.fillUpArticleTags(article.tag);
-  await createArticlePage.clickPublishArticleButton();
+  await test.step(`Open the 'New Article' page`, async () => {
+    await homePage.clickNewArticleLink();
+  });
+  await test.step('Fill in the article title', async () => {
+    await createArticlePage.fillUpArticleTitle(article.title);
+  });
+  await test.step('Fill in the article body', async () => {
+    await createArticlePage.fillUpArticleBody(article.body);
+  });
+  await test.step('Fill in the article tag', async () => {
+    await createArticlePage.fillUpArticleTags(article.tag);
+  });
+  await test.step('Publish the article', async () => {
+    await createArticlePage.clickPublishArticleButton();
+  });
 
-  await createArticlePage.assertErrorMessageContainsText(
-    'Article description cannot be empty',
-  );
+  await test.step('Check the error message', async () => {
+    await createArticlePage.assertErrorMessageContainsText(
+      'Article description cannot be empty',
+    );
+  });
 });
