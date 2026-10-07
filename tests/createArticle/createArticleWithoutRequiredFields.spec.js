@@ -26,11 +26,58 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
-  await homePage.clickNewArticleLink();
+test('Create an article with required and optional fields', async () => {
+  const article = {
+    title: faker.lorem.sentence(),
+    description: faker.lorem.sentence(),
+    body: faker.lorem.paragraph(),
+    tag: faker.lorem.word(),
+  };
 
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillTitleField(article.title);
+  await createArticlePage.fillDescriptionField(article.description);
+  await createArticlePage.fillBodyField(article.body);
+  await createArticlePage.fillTagsField(article.tag);
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertErrorMessageContainsText(
-    'Article title cannot be empty',
-  );
+});
+
+test('Create an article without article description', async () => {
+  const article = {
+    title: faker.lorem.sentence(),
+    body: faker.lorem.paragraph(),
+  };
+
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillTitleField(article.title);
+  await createArticlePage.fillBodyField(article.body);
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText('description');
+});
+
+test('Create an article without article text', async () => {
+  const article = {
+    title: faker.lorem.sentence(),
+    description: faker.lorem.sentence(),
+  };
+
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillTitleField(article.title);
+  await createArticlePage.fillDescriptionField(article.description);
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText('body');
+});
+
+test('Create an article without article tag', async () => {
+  const article = {
+    title: faker.lorem.sentence(),
+    description: faker.lorem.sentence(),
+    body: faker.lorem.paragraph(),
+  };
+
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillTitleField(article.title);
+  await createArticlePage.fillDescriptionField(article.description);
+  await createArticlePage.fillBodyField(article.body);
+  await createArticlePage.clickPublishArticleButton();
 });
