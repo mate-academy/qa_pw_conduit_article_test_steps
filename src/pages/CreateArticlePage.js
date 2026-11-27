@@ -53,6 +53,9 @@ export class CreateArticlePage {
   async assertArticleIsCreatedSuccessfully(title, text, tag) {
     await test.step('Assert the article is created successfully', async () => {
       await expect(this.page).toHaveURL(/\/article\/test-article-title/);
+      await expect(
+        this.page.getByRole('heading', { name: title, exact: true }),
+      ).toBeVisible();
       await expect(this.articleTags).toContainText(tag);
       await expect(this.page.getByText(text)).toBeVisible();
     });
